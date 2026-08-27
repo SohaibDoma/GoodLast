@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GoodLast</title>
+
+    <link rel="icon"
+          type="image/svg+xml"
+          href="./assets/goodlast-icon.svg"
+          media="(prefers-color-scheme: light)">
+
+    <link rel="icon"
+          type="image/svg+xml"
+          href="./assets/goodlast-icon-dark.svg"
+          media="(prefers-color-scheme: dark)">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+    <!-- ========================================
+         FIXED PAGE CONTROL
+    ======================================== -->
+
+    <div class="page-control">
+
+        <!-- Question Mark -->
+
+        <a href="#goodlast"
+           class="info-button"
+           id="info-button"
+           aria-label="Enter">
+
+            ?
+
+        </a>
+
+
+        <!-- X -->
+
+        <a href="#hero"
+           class="close-button"
+           id="close-button"
+           aria-label="Close">
+
+            <span></span>
+            <span></span>
+
+        </a>
+
+    </div>
+
+
+    <!-- ========================================
+         SCREEN 1
+    ======================================== -->
+
+    <section class="hero" id="hero">
+
+        <div class="logo-container">
+
+            <a href="#goodlast"
+               aria-label="Enter GoodLast"
+               id="enter-goodlast">
+
+                <img src="./assets/goodlast-icon.svg"
+                     alt="GoodLast">
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================
+         SCREEN 2
+    ======================================== -->
+
+    <section class="goodlast" id="goodlast">
+
+        <div class="goodlast-wordmark">
+            <img src="./assets/goodlast-wordmark.svg"
+                 alt="GoodLast">
+        </div>
+
+
+        <!-- CENTERED TEXT -->
+
+        <div class="goodlast-content">
+
+<h2>
+    A Nonprofit Organization.<br>
+    Wahyollah is our first project,<br>
+    Check it out.
+</h2>
+
+        </div>
+
+
+        <!-- PROJECTS -->
+
+        <div class="projects">
+
+            <div class="project">
+
+                <a href="https://wahyollah.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    <img src="./assets/wahyollah-logo.svg"
+                         alt="Wahyollah"
+                         class="project-logo">
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+<script>
+
+    const goodLastLogo =
+        document.querySelector(".logo-container img");
+
+    const infoButton =
+        document.getElementById("info-button");
+
+    const closeButton =
+        document.getElementById("close-button");
+
+
+    let pageTwoActive = false;
+
+    let touchStartY = 0;
+    let touchStartX = 0;
+    let touchTriggered = false;
+
+
+    // ========================================
+    // PAGE SCROLL
+    // ========================================
+
+    function moveToPage(target) {
+
+        window.scrollTo({
+            top: target,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    // ========================================
+    // ENTER PAGE 2
+    // ========================================
+
+    function enterPageTwo(event) {
+
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+
+        if (pageTwoActive) return;
+
+
+        pageTwoActive = true;
+
+
+        // ? disappears
+
+        infoButton.classList.add("hide");
+
+
+        // X appears
+
+        closeButton.classList.add("show");
+
+
+        // Move to Page 2
+
+        moveToPage(
+            document.getElementById("goodlast").offsetTop
+        );
+
+    }
+
+
+    // ========================================
+    // RETURN TO PAGE 1
+    // ========================================
+
+    function returnToPageOne(event) {
+
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+
+        if (!pageTwoActive) return;
+
+
+        pageTwoActive = false;
+
+
+        // X disappears
+
+        closeButton.classList.remove("show");
+
+
+        // ? appears
+
+        infoButton.classList.remove("hide");
+
+
+        // Move to Page 1
+
+        moveToPage(0);
+
+    }
+
+
+    // ========================================
+    // GOODLAST LOGO
+    // ========================================
+
+    document
+        .getElementById("enter-goodlast")
+        .addEventListener(
+            "click",
+            enterPageTwo
+        );
+
+
+    // ========================================
+    // ? BUTTON
+    // ========================================
+
+    infoButton.addEventListener(
+        "click",
+        enterPageTwo
+    );
+
+
+    // ========================================
+    // X BUTTON
+    // ========================================
+
+    closeButton.addEventListener(
+        "click",
+        returnToPageOne
+    );
+
+
+    // ========================================
+    // DESKTOP WHEEL
+    // ========================================
+
+    window.addEventListener(
+        "wheel",
+        function (event) {
+
+            event.preventDefault();
+
+
+            if (
+                event.deltaY > 0 &&
+                !pageTwoActive
+            ) {
+
+                enterPageTwo();
+
+                return;
+            }
+
+
+            if (
+                event.deltaY < 0 &&
+                pageTwoActive
+            ) {
+
+                returnToPageOne();
+
+                return;
+            }
+
+        },
+        { passive: false }
+    );
+
+
+    // ========================================
+    // MOBILE TOUCH START
+    // ========================================
+
+    window.addEventListener(
+        "touchstart",
+        function (event) {
+
+            touchStartY =
+                event.touches[0].clientY;
+
+            touchStartX =
+                event.touches[0].clientX;
+
+            touchTriggered = false;
+
+        },
+        { passive: true }
+    );
+
+
+    // ========================================
+    // MOBILE TOUCH MOVE
+    // ========================================
+
+    window.addEventListener(
+        "touchmove",
+        function (event) {
+
+            const currentY =
+                event.touches[0].clientY;
+
+            const currentX =
+                event.touches[0].clientX;
+
+
+            const deltaY =
+                touchStartY - currentY;
+
+            const deltaX =
+                touchStartX - currentX;
+
+
+            // Ignore horizontal movement
+
+            if (
+                Math.abs(deltaX) >
+                Math.abs(deltaY)
+            ) {
+
+                return;
+
+            }
+
+
+            event.preventDefault();
+
+
+            if (touchTriggered) return;
+
+
+            const swipeDistance = 35;
+
+
+            // ====================================
+            // SWIPE UP
+            // ====================================
+
+            if (
+                deltaY > swipeDistance &&
+                !pageTwoActive
+            ) {
+
+                touchTriggered = true;
+
+                enterPageTwo();
+
+                return;
+            }
+
+
+            // ====================================
+            // SWIPE DOWN
+            // ====================================
+
+            if (
+                deltaY < -swipeDistance &&
+                pageTwoActive
+            ) {
+
+                touchTriggered = true;
+
+                returnToPageOne();
+
+                return;
+            }
+
+        },
+        { passive: false }
+    );
+
+
+    // ========================================
+    // MOBILE TOUCH END
+    // ========================================
+
+    window.addEventListener(
+        "touchend",
+        function () {
+
+            touchTriggered = false;
+
+        },
+        { passive: true }
+    );
+
+</script>
+
+</body>
+</html>

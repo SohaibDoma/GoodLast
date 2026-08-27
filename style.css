@@ -1,0 +1,345 @@
+@font-face {
+    font-family: "Neue Haas Grotesk";
+    src: url("./assets/fonts/neuehaasgrotdispround-55roman-trial.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Neue Haas Grotesk", sans-serif;
+}
+
+/* ========================================
+   SCREENS
+======================================== */
+
+.hero,
+.goodlast {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+}
+
+
+/* ========================================
+   SCREEN 1 — GOODLAST
+======================================== */
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+}
+
+.logo-container a {
+    display: block;
+}
+
+.logo-container img {
+    width: 120px;
+    height: 120px;
+    display: block;
+    cursor: pointer;
+
+    transition: none;
+}
+
+.logo-container img:hover {
+    opacity: 0.85;
+}
+
+
+/* ========================================
+   SCREEN 2 — GOODLAST
+======================================== */
+
+.goodlast {
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+
+    background: #ffffff;
+
+    overflow: hidden;
+}
+
+
+/* ========================================
+   GOODLAST WORDMARK — PAGE 2
+======================================== */
+
+.goodlast-wordmark {
+    position: absolute;
+
+    top: 100px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: max-content;
+
+    z-index: 2;
+}
+
+.goodlast-wordmark img {
+    width: 200px;
+    height: auto;
+
+    display: block;
+}
+
+
+/* ========================================
+   GOODLAST TEXT
+======================================== */
+
+.goodlast-content {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 100%;
+
+    text-align: center;
+
+    z-index: 1;
+}
+
+.goodlast-content h2 {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 1px;
+
+    margin: 0;
+}
+
+
+/* ========================================
+   PROJECT LOGOS
+======================================== */
+
+.projects {
+    position: absolute;
+
+    bottom: 60px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 40px;
+
+    z-index: 2;
+}
+
+.project {
+    margin: 0;
+}
+
+.project-logo {
+    width: 120px;
+    height: auto;
+
+    display: block;
+
+    transition:
+        transform 0.4s ease,
+        opacity 0.4s ease;
+}
+
+.project-logo:hover {
+    opacity: 0.65;
+}
+
+.project-logo:active {
+    transform: scale(0.94);
+}
+
+
+/* ========================================
+   PAGE CONTROLS
+======================================== */
+
+.page-control {
+    position: fixed;
+
+    top: 0;
+    right: 0;
+
+    z-index: 1000;
+}
+
+
+/* ========================================
+   ? AND ×
+   SAME POSITION / SIZE / HOVER
+======================================== */
+
+.info-button,
+.close-button {
+    position: fixed;
+
+    top: 30px;
+    right: 30px;
+
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #000000;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.45s ease,
+        opacity 0.2s ease;
+}
+
+
+/* ========================================
+   QUESTION MARK
+======================================== */
+
+.info-button {
+    font-family: "Neue Haas Grotesk", sans-serif;
+    font-size: 35px;
+    font-weight: 700;
+}
+
+/* ? HOVER */
+
+.info-button:hover {
+    opacity: 0.65;
+}
+
+
+/* ? DISAPPEARS */
+
+.info-button.hide {
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* ========================================
+   ×
+======================================== */
+
+.close-button {
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+
+    z-index: 1001;
+}
+
+
+/* ========================================
+   ROUNDED X
+======================================== */
+
+.close-button span {
+    position: absolute;
+
+    width: 28px;
+    height: 4px;
+
+    background: #000000;
+
+    border-radius: 999px;
+
+    display: block;
+}
+
+.close-button span:first-child {
+    transform: rotate(45deg);
+}
+
+.close-button span:last-child {
+    transform: rotate(-45deg);
+}
+
+
+/* ========================================
+   X HOVER — SAME AS ?
+======================================== */
+
+.close-button.show:hover {
+    opacity: 0.65;
+}
+
+
+/* ========================================
+   X PRESS
+======================================== */
+
+.close-button:active {
+    transform: scale(0.92);
+}
+
+
+/* ========================================
+   X APPEARS
+======================================== */
+
+.close-button.show {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+/* ========================================
+   REMOVE FOCUS / TAP HIGHLIGHT
+======================================== */
+
+*,
+*::before,
+*::after {
+    -webkit-tap-highlight-color: transparent;
+}
+
+*:focus,
+*:focus-visible,
+*:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.info-button,
+.close-button,
+.info-button:focus,
+.info-button:focus-visible,
+.info-button:active,
+.close-button:focus,
+.close-button:focus-visible,
+.close-button:active {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+}
